@@ -1,0 +1,82 @@
+:root {
+    --clr-blue:#13285B;
+    --clr-lightblue:#51B6BE;
+    --clr-white:#ffffff;
+    --clr-dark-gray:#5A5A5A;
+    --clr-med-gray:#BABABA;
+    --clr-light-gray:#E6E6E6;
+    --clr-light-gray-2:#FAFAFA;
+    --clr-light:#DCF0F2;
+}
+
+
+$box-shadow: 5px 5px 18px -5px rgba(0,0,0,0.25);
+$padding-section:90px 0px;
+$border-radius:20px;
+$padding-base: 50px;
+$border-radius-form:10px;
+$padding-form:30px;
+$border-top: 1px solid var(--clr-light-gray);
+$border-bottom: 1px solid var(--clr-light-gray);
+$m-4:40px;
+$m-3:30px;
+$m-2:20px;
+$m-1:10px;
+$p-8:80px;
+$p-0:0px;
+
+.pt-8 {
+    padding-top: $p-8;
+}
+
+.mb-4 {
+    margin-bottom: $m-4;
+}
+
+.mb-3 {
+    margin-bottom: $m-3;
+}
+
+.mb-2 {
+    margin-bottom: $m-2;
+}
+
+.mb-1 {
+    margin-bottom: $m-1;
+}
+
+.mr-2 {
+    margin-right: $m-2;
+}
+
+.mr-1 {
+    margin-right: $m-1;
+}
+
+
+.pb-0 {
+    padding-bottom: $p-0 !important;
+}
+
+
+
+.border-top {
+    border-top:$border-top;
+}
+
+.border-bottom {
+    border-bottom:$border-bottom;
+}
+
+$font-weight: (
+    light:300,
+    regular:400,
+    semi-bold:600,
+    bold:700
+);
+
+@function font-weight($f-weight) {
+    @return map-get($font-weight, $f-weight)
+};
+
+

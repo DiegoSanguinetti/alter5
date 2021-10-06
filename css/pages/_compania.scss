@@ -1,0 +1,141 @@
+@use '../abstracts' as *;
+
+.compania-header {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.3) 100%), url(../imgs/compania-header.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &__content {
+        text-align: center;
+
+        .title {
+            font-weight: font-weight(light);
+            font-size: 5.25rem;
+            color: var(--clr-white);
+            line-height: 4.5rem;
+
+            @include media-max (md) {
+                font-size: 2.25rem;
+                line-height: 2.75rem;
+            }
+        }
+    }
+
+}
+
+.compania-content {
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        column-gap: 10rem;
+        row-gap: 5rem;
+        padding: $padding-section;
+
+        @include media-min (md) {
+            grid-template-columns: repeat(2, 1fr);
+
+        }
+    }
+
+    &__column {
+        &.two--column {
+            grid-column: span 1;
+        }
+
+        &.one--column {
+
+            @include media-min (md) {
+                grid-column: span 2; 
+            }
+        }
+
+        &.name-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+
+            @include media-min (lg) {
+                gap: 30rem;
+            }
+
+            @include media-max (lg) {
+                gap: 15rem;
+            }
+
+            @include media-max (md) {
+                gap: 10rem;
+            }
+
+            @include media-max (sm) {
+                gap: 2rem;
+            }
+        }
+    }
+
+    &__picture {
+        background-image: linear-gradient(-90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.3) 100%),url('../imgs/green-new-deal.jpg');
+        background-size: cover;
+        height: 600px;
+        width: 100%;
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+        padding: 40px;
+        display: flex;
+        align-items: flex-end;
+        color: var(--clr-white);
+
+        @include media-max (sm) {
+            height: 500px;
+        }
+
+    }
+}
+
+.compania-team {
+    padding: $padding-section;
+    background-color: var(--clr-light-gray-2);
+
+    &__grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-top: 80px;
+
+        @include media-min (md) {
+            grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+        }
+
+        @include media-max (sm) {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    &__column {
+        @include media-max (sm) {
+            display: flex;
+
+            a {
+                align-self: flex-start;
+            }
+        }
+    }
+
+    &__name {
+        font-size: 1.375rem;
+        color: var(--clr-blue);
+        margin-bottom: 10px;
+
+        &__content {
+            flex: 1;
+        }
+    }
+
+    &__position {
+        font-size: 0.875rem;
+        color: var(--clr-lightblue);
+        margin-bottom: 15px;
+    }
+}

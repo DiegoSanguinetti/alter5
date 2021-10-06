@@ -1,0 +1,280 @@
+# Basado en HTML5 Boilerplate Apache Server Configs v2.14.0
+# https://github.com/h5bp/server-configs-apache
+
+
+
+#######################################################################
+# REESCRITURAS                                                        #
+#######################################################################
+# ----------------------------------------------------------------------
+# | Rewrite engine                                                     |
+# ----------------------------------------------------------------------
+
+# (1) Turn on the rewrite engine (this is necessary in order for
+#     the `RewriteRule` directives to work).
+#
+#     https://httpd.apache.org/docs/current/mod/mod_rewrite.html#RewriteEngine
+#
+# (2) Enable the `FollowSymLinks` option if it isn't already.
+#
+#     https://httpd.apache.org/docs/current/mod/core.html#options
+#
+# (3) If your web host doesn't allow the `FollowSymlinks` option,
+#     you need to comment it out or remove it, and then uncomment
+#     the `Options +SymLinksIfOwnerMatch` line (4), but be aware
+#     of the performance impact.
+#
+#     https://httpd.apache.org/docs/current/misc/perf-tuning.html#symlinks
+#
+# (4) Some cloud hosting services will require you set `RewriteBase`.
+#
+#     https://www.rackspace.com/knowledge_center/frequently-asked-question/why-is-modrewrite-not-working-on-my-site
+#     https://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewritebase
+#
+# (5) Depending on how your server is set up, you may also need to
+#     use the `RewriteOptions` directive to enable some options for
+#     the rewrite engine.
+#
+#     https://httpd.apache.org/docs/current/mod/mod_rewrite.html#rewriteoptions
+#
+# (6) Set %{ENV:PROTO} variable, to allow rewrites to redirect with the
+#     appropriate schema automatically (http or https).
+
+<IfModule mod_rewrite.c>
+
+    # (1)
+    RewriteEngine On
+
+    # (2)
+    Options +FollowSymlinks
+
+    # (3)
+    # Options +SymLinksIfOwnerMatch
+
+    # (4)
+     RewriteBase /clientes/alter5/
+
+    # (5)
+    # RewriteOptions <options>
+
+    # (6)
+    RewriteCond %{HTTPS} =on
+    RewriteRule ^ - [env=proto:https]
+    RewriteCond %{HTTPS} !=on
+    RewriteRule ^ - [env=proto:http]
+
+</IfModule>
+
+
+# ----------------------------------------------------------------------
+# | Forcing `https://`                                                 |
+# ----------------------------------------------------------------------
+
+# Redirect from the `http://` to the `https://` version of the URL.
+# https://wiki.apache.org/httpd/RewriteHTTPToHTTPS
+
+<IfModule mod_rewrite.c>
+   # RewriteEngine On
+   # RewriteCond %{HTTPS} !=on
+   # RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=302,L]
+</IfModule>
+
+
+# ----------------------------------------------------------------------
+# | Suppressing / Forcing the `www.` at the beginning of URLs          |
+# ----------------------------------------------------------------------
+
+# The same content should never be available under two different
+# URLs, especially not with and without `www.` at the beginning.
+# This can cause SEO problems (duplicate content), and therefore,
+# you should choose one of the alternatives and redirect the other
+# one.
+#
+# By default `Option 1` (no `www.`) is activated.
+# http://no-www.org/faq.php?q=class_b
+#
+# If you would prefer to use `Option 2`, just comment out all the
+# lines from `Option 1` and uncomment the ones from `Option 2`.
+#
+# (!) NEVER USE BOTH RULES AT THE SAME TIME!
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Option 1: rewrite www.example.com &#8594; example.com
+
+<IfModule mod_rewrite.c>
+    # RewriteEngine On
+    # RewriteCond %{HTTPS} !=on
+    # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    # RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=302,L]
+</IfModule>
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Option 2: rewrite example.com &#8594; www.example.com
+#
+# Be aware that the following might not be a good idea if you use "real"
+# subdomains for certain parts of your website.
+
+# <IfModule mod_rewrite.c>
+#     RewriteEngine On
+#     # RewriteCond %{HTTPS} !=on
+#     RewriteCond %{HTTP_HOST} !^www\. [NC]
+#     RewriteCond %{SERVER_ADDR} !=127.0.0.1
+#     RewriteCond %{SERVER_ADDR} !=::1
+#     RewriteRule ^ %{ENV:PROTO}://www.%{HTTP_HOST}%{REQUEST_URI} [R=302,L]
+# </IfModule>
+
+
+DirectoryIndex index.php index.html index.htm
+
+# Página de mantenimiento
+# (para actualizar el sitio sin miedo a que alguien lo vea roto)
+#RewriteCond %{REMOTE_ADDR} !^181\.170\.221\.236$
+# RewriteCond %{THE_REQUEST} !(.+)\.css
+# RewriteCond %{THE_REQUEST} !(.+)\.js
+# RewriteCond %{THE_REQUEST} !(.+)\.jpg
+# RewriteCond %{THE_REQUEST} !(.+)\.gif
+# RewriteCond %{THE_REQUEST} !(.+)\.png
+# RewriteCond %{REQUEST_URI} !(sitio-en-mantenimiento)
+# RewriteCond %{REQUEST_URI} !(errores/307)
+# RewriteRule ^(.*)$ sitio-en-mantenimiento [R=307,L]
+
+RewriteRule ^sitio-en-mantenimiento$ /errores/307/ [L]
+
+
+### Detecto el idioma ###
+RewriteCond %{REQUEST_URI} !^.*\.(jpg|css|js|gif|png)$ [NC] #Evita que se sobreesriban los recursos que no son .php
+RewriteRule ^([a-z]{2})/(.*)         $2?idioma=$1 [QSA,PT]
+#########################
+
+
+### Secciones ###
+RewriteRule ^ejemplo/([0-9]+)-([^/]+)/?$     ejemplo.php?id=$1  [QSA,L]
+##################
+
+### Oculto las URL del CMS ###
+RewriteRule ^images/galleries/(.*)     /cms/resources/galleries/$1  [QSA,L]
+RewriteRule ^images/(ejemplo)/(.*)     /cms/resources/images/$1/$2  [QSA,L]
+RewriteRule ^archivos/(ejemplo)/(.*)   /cms/resources/files/$1/$2   [QSA,L]
+##############################
+
+# Remuevo la barra del final, a no ser que sea un directorio
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([^/]+)/$ $1 [R=301,L]
+
+# Redirecciona solicitudes .php externas a una URL si extensión
+RewriteCond %{THE_REQUEST} ^(.+)\.php([#?][^\ ]*)?\ HTTP/
+RewriteRule ^(.+)\.php$ $1 [QSA,R=301,L]
+
+# Resuelvo como archivo .php las URL sin extensión
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_URI} !^(.+)\.([^/]+)$
+RewriteRule ^(.+)$ $1.php [NC,L]
+
+# ######################################################################
+# # WEB PERFORMANCE                                                    #
+# ######################################################################
+
+
+# ----------------------------------------------------------------------
+# | Expires headers                                                    |
+# ----------------------------------------------------------------------
+
+# Serve resources with far-future expires headers.
+#
+# (!) If you don't control versioning with filename-based
+# cache busting, you should consider lowering the cache times
+# to something like one week.
+#
+# https://httpd.apache.org/docs/current/mod/mod_expires.html
+
+<IfModule mod_expires.c>
+
+    ExpiresActive on
+    ExpiresDefault                                      "access plus 1 year"
+
+  # CSS
+
+    ExpiresByType text/css                              "access plus 1 year"
+
+
+  # Data interchange
+
+    ExpiresByType application/atom+xml                  "access plus 1 hour"
+    ExpiresByType application/rdf+xml                   "access plus 1 hour"
+    ExpiresByType application/rss+xml                   "access plus 1 hour"
+
+    ExpiresByType application/json                      "access plus 0 seconds"
+    ExpiresByType application/ld+json                   "access plus 0 seconds"
+    ExpiresByType application/schema+json               "access plus 0 seconds"
+    ExpiresByType application/vnd.geo+json              "access plus 0 seconds"
+    ExpiresByType application/xml                       "access plus 0 seconds"
+    ExpiresByType text/xml                              "access plus 0 seconds"
+
+
+  # Favicon (cannot be renamed!) and cursor images
+
+    ExpiresByType image/vnd.microsoft.icon              "access plus 1 week"
+    ExpiresByType image/x-icon                          "access plus 1 week"
+
+  # HTML
+
+    ExpiresByType text/html                             "access plus 0 seconds"
+
+
+  # JavaScript
+
+    ExpiresByType application/javascript                "access plus 1 year"
+    ExpiresByType application/x-javascript              "access plus 1 year"
+    ExpiresByType text/javascript                       "access plus 1 year"
+
+
+  # Manifest files
+
+    ExpiresByType application/manifest+json             "access plus 1 week"
+    ExpiresByType application/x-web-app-manifest+json   "access plus 0 seconds"
+    ExpiresByType text/cache-manifest                   "access plus 0 seconds"
+
+
+  # Media files
+
+    ExpiresByType audio/ogg                             "access plus 1 year"
+    ExpiresByType image/bmp                             "access plus 1 year"
+    ExpiresByType image/gif                             "access plus 1 year"
+    ExpiresByType image/jpeg                            "access plus 1 year"
+    ExpiresByType image/png                             "access plus 1 year"
+    ExpiresByType image/svg+xml                         "access plus 1 year"
+    ExpiresByType image/webp                            "access plus 1 year"
+    ExpiresByType video/mp4                             "access plus 1 year"
+    ExpiresByType video/ogg                             "access plus 1 year"
+    ExpiresByType video/webm                            "access plus 1 year"
+
+
+  # Web fonts
+
+    # Embedded OpenType (EOT)
+    ExpiresByType application/vnd.ms-fontobject         "access plus 1 year"
+    ExpiresByType font/eot                              "access plus 1 year"
+
+    # OpenType
+    ExpiresByType font/opentype                         "access plus 1 year"
+
+    # TrueType
+    ExpiresByType application/x-font-ttf                "access plus 1 year"
+
+    # Web Open Font Format (WOFF) 1.0
+    ExpiresByType application/font-woff                 "access plus 1 year"
+    ExpiresByType application/x-font-woff               "access plus 1 year"
+    ExpiresByType font/woff                             "access plus 1 year"
+
+    # Web Open Font Format (WOFF) 2.0
+    ExpiresByType application/font-woff2                "access plus 1 year"
+
+
+  # Other
+
+    ExpiresByType text/x-cross-domain-policy            "access plus 1 week"
+
+</IfModule>

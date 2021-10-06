@@ -1,0 +1,84 @@
+$grid-breakpoints: (
+    xs: 380,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1400px
+);
+
+@mixin media-min($name, $breakpoints: $grid-breakpoints) {
+    $media: map-get($breakpoints, $name);
+    @media (min-width: $media)  {
+        @content;
+    }
+  }
+
+@mixin media-max($name, $breakpoints: $grid-breakpoints) {
+    $media: map-get($breakpoints, $name);
+    @media (max-width: $media)  {
+        @content;
+    }
+  }
+
+
+
+
+@mixin portrait {
+    @media (max-width: #{$desktop-sm}) and (orientation : portrait)  {
+        @content;
+    }
+}
+
+@mixin desktop-xl {
+    @media (min-width: #{$desktop-lg}) {
+        @content;
+    }
+}
+
+@mixin desktop-lg {
+    @media (max-width: #{$desktop-lg}) {
+        @content;
+    }
+}
+
+
+
+@mixin desktop-sm {
+    @media (min-width: #{$desktop-sm}) {
+        @content;
+    }
+}
+
+
+
+@mixin desktop-xs {
+    @media (max-width: #{$desktop-xs}) {
+        @content;
+    }
+}
+
+
+@mixin desktop-sm-min {
+    @media (min-width: #{$desktop-sm}) {
+        @content;
+    }
+}
+
+@mixin mobile {
+    @media (min-width: #{$mobile}) {
+        @content;
+    }
+}
+
+@mixin text ($color) {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    color: $color;
+}
+
+@mixin text-small ($color) {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: $color;
+}

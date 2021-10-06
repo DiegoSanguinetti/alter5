@@ -1,0 +1,39 @@
+@use '../abstracts' as *;
+
+$container-widths: (
+    sm: 540px,
+    md: 720px,
+    lg: 960px,
+    xl: 1140px,
+    xxl: 1320px
+);
+
+$columns: 12;
+$column-gap: 2rem;
+
+
+@mixin device-up($name, $breakpoints: $grid-breakpoints) {
+    $min: map-get($breakpoints, $name);
+    @if if(0 != $min, $min, null) {
+      @media (min-width: $min) {
+        @content;
+      }
+    } @else {
+      @content;
+    }
+  }
+
+// Container
+.container {
+    width: 100%;
+    padding-right: ($column-gap / 2);
+    padding-left: ($column-gap / 2);
+    margin-right: auto;
+    margin-left: auto;
+  
+    @each $breakpoint, $width in $container-widths {
+      @include device-up($breakpoint, $grid-breakpoints) {
+        max-width: $width;
+      }
+    }
+  }

@@ -1,0 +1,6 @@
+@use '../abstracts/' as *;
+
+.border-shadow {
+    box-shadow: $box-shadow;
+    border-radius: $border-radius;
+}

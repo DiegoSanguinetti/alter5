@@ -1,0 +1,235 @@
+@use '../abstracts' as *;
+
+.programas {
+
+  &-header {
+    height: 350px;
+    width: 100%;
+    position: absolute;
+    z-index: -10;
+    margin-top: 100px;
+  }
+
+  &__content{
+    padding-top: 250px;
+    
+  }
+
+  &__base {
+      display: grid;
+      column-gap: 2rem;
+      row-gap: 2rem;
+      grid-template-columns: 1fr;
+
+      @include media-min(lg) {
+        grid-template-columns: 1fr 1fr;
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+        padding:$padding-base;
+        background-color: var(--clr-white);
+      }
+
+      &__left {
+        padding:$padding-form !important;
+
+        @include media-max(lg) {
+        border-radius: $border-radius;
+        box-shadow: $box-shadow;
+        padding:$padding-base;
+        background-color: var(--clr-white);
+      }
+        
+        p {
+          @include text-small(var(--clr-dark-gray));
+          margin-bottom: 40px;
+          margin-top: 30px;
+        }
+
+        ul {
+          @include text-small(var(--clr-dark-gray));
+          margin-bottom: 40px;
+          padding: 0px 0px 0px 15px;
+        }
+
+        small {
+          font-size: 0.75rem;
+          color: var(--clr-dark-gray);
+          margin-bottom: 30px;
+          display: block;
+
+        }
+        
+        .flag {
+          border-radius: 10px;
+          box-shadow: $box-shadow;
+          margin-right: 25px;
+          background-color: #fff;
+
+          @include media-max (sm) {
+            width: 80px;
+            margin-right: 10px;
+          }
+        }
+
+        &__footer {
+          display: flex;
+        }
+      }
+
+      &__right {
+          position: relative;
+      }
+
+      &__form {
+          box-shadow: $box-shadow;
+          border-radius: $border-radius-form;
+          background-color: var(--clr-white);
+          padding: $padding-form;
+          font-size: 0.875rem;
+          color: var(--clr-dark-gray);
+          position: relative;
+          width: 100%;
+
+          @include media-min(lg) {
+            position: absolute;
+            top: -80px;
+          }
+
+      }
+
+      &__list {
+        margin-bottom: 80px;
+        margin-top: 50px;
+
+        .small {
+          color: var(--clr-dark-gray);
+        }
+
+        @include media-min(lg) {
+          width: 50%;
+          padding-right: 40px;
+
+        }
+
+        &__benefit {
+          padding-top: 40px;
+          padding-bottom: 40px;
+        }
+
+      }
+
+  }
+
+  &__reunion {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 80px 0px;
+
+    @include media-min (md) {
+      flex-direction: row;
+    }
+
+    h6 {
+      margin-bottom: 20px;
+    }
+
+    &__contact {
+      margin-top: 35px;
+      display: flex;
+      
+      @include media-min (md) {
+        margin-top: 0px;       
+      }
+       .btn {
+         align-self: center;
+       }
+    }
+  }
+
+  &__productos {
+    padding: $padding-section;
+
+    &.promotores {
+      background-color: var(--clr-lightblue);
+    }
+
+    &.inversores {
+      background-color: var(--clr-blue);
+    }
+
+    &__title {
+      font-weight: font-weight(bold);
+      color:var(--clr-white);
+      font-size: 1.25rem;
+      margin-bottom: 50px;
+    }
+
+    &__cards {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+
+      @include media-min(lg) {
+        grid-template-columns: 1fr 1fr;       
+      }
+    }
+
+    &__card {
+      display: flex;
+      background-color: var(--clr-white);
+      border-radius: $border-radius;
+      box-shadow: $box-shadow;
+      padding: 30px;
+      justify-content: space-between;
+
+      @include media-max (sm) {
+        padding: 20px;
+      }
+
+      &__text {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex: 1;
+
+        .btn--small {
+          margin: 0 auto 0 0;
+
+          @include media-max (sm) {
+            font-size: 0.7rem !important;
+          }
+        }
+
+        p {
+          font-size: 1rem;
+          font-weight: font-weight(bold);
+          line-height: 1.3rem;
+          margin-bottom: 15px;
+
+          @include media-min (md) {
+            font-size: 1.5rem;
+            line-height: 1.6rem;
+          }
+        }
+      }
+
+      &__picture {
+
+        display: flex;
+        justify-content: flex-end;
+        flex: 1;
+
+        @include media-max (sm) {
+          flex: 0.7;
+        }
+
+          img {
+            border-radius: $border-radius;
+            box-shadow: $box-shadow;
+            align-self: center;
+          }
+        }
+    }
+  }
+}

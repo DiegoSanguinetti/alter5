@@ -1,0 +1,55 @@
+@use '../abstracts' as *;
+
+#swiper-home {
+    width: 100%;
+    height: auto;
+    padding-bottom: 50px;
+
+    .swiper-slide {
+        @include media-max (md) {
+                padding: 20px;
+        }
+        img {
+            box-shadow: $box-shadow;
+            margin: auto;
+            max-width: 100%;
+
+        }
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: var(--clr-lightblue) !important;
+    }
+    
+    .swiper-pagination-bullet {
+        background:var(--clr-light);
+    }
+
+
+}
+
+#swiper-otros {
+    height: 300px;
+    padding-bottom: 60px;
+
+    @include media-max (sm) {
+        height: 250px;
+    }
+
+    .swiper-pagination-bullet {
+        background: var(--clr-light);
+    }
+
+    .swiper-pagination-bullet-active {
+        background-color: var(--clr-blue);
+    }
+
+    .programas__productos__card {
+        height: 100%;
+    }
+
+
+    .swiper-slide {
+        height: auto;
+    }
+}

@@ -1,0 +1,190 @@
+@use '../abstracts' as *;
+
+body {
+    font-family: 'Inter', sans-serif;
+    font-weight: font-weight(regular);
+    color: var(--clr-blue);
+}
+
+h2 {
+    font-size: 2.25rem ;
+    line-height: 2.5rem;
+    font-weight: font-weight(bold);
+    margin-bottom: 40px;
+
+    @include media-min(lg) {
+        font-size: 3.5rem ;
+        line-height: 3.5rem;
+    }
+    
+}
+
+.h2 {
+    font-size: 5.25rem;
+    line-height: 5.25rem;
+    font-weight: font-weight(light);
+    
+}
+
+h3, .h3 {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: font-weight(bold);
+    margin-bottom: 40px;
+
+    @include media-min(lg) {
+        font-size: 3rem;
+        line-height: 3rem;
+    }
+}
+
+h4, .h4 {
+    font-size: 1.75rem;
+    line-height: 2rem;
+    font-weight: font-weight(bold);
+
+    @include media-min (md) {
+        font-size: 2.375em;
+        line-height: 2.5rem;
+    }
+
+}
+
+
+h5, .h5 {
+    font-size: 1.5rem ;
+    line-height: 1.75rem;
+    font-weight: font-weight(bold);
+
+    @include media-min (md) {
+        font-size: 2rem ;
+        line-height: 2.25rem;
+    }
+
+}
+
+h6, .h6 {
+    font-size: 1.25rem ;
+    line-height: 1.5rem;
+    font-weight: font-weight(bold);
+
+    @include media-min(lg) {
+        font-size: 1.75rem ;
+        line-height: 1.75rem;
+    }
+}
+
+.h7 {
+    font-size: 1.25rem ;
+    line-height: 1.5rem;
+    font-weight: font-weight(bold);
+
+    @include media-min (md) {
+        font-size: 1.75em ;
+        line-height: 1.5rem;
+    }
+}
+
+.h8 {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    font-weight: font-weight(bold);
+
+    @include media-min (md) {
+        font-size: 1.25rem;
+        line-height: 1.5rem;
+    }
+}
+
+.h9 {
+    font-size: 1rem;
+    line-height: 1.25rem;
+    font-weight: font-weight(bold);
+}
+
+.text {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--clr-blue);
+
+    @include media-min (sm) {
+        font-size: 1.125rem;
+        line-height: 1.5rem;
+    }
+}
+
+.text--small {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--clr-blue);
+}
+
+.highlight {
+    font-size: 1.375rem;
+    line-height: 1.875rem;
+    color: var(--clr-lightblue);
+
+    @include media-min (sm) {
+        font-size: 1.75rem;
+        line-height: 2rem;       
+    }
+}
+
+.bold {
+    font-weight: font-weight(bold);
+}
+
+.light {
+    font-weight: font-weight(light);
+}
+
+.txt--blue {
+    color: var(--clr-blue);
+}
+
+.txt--lightblue {
+    color: var(--clr-lightblue) !important;
+}
+
+.txt--darkgray {
+    color: var(--clr-dark-gray);
+}
+
+.txt--white {
+    color:var(--clr-white);
+}
+
+.text-center {
+    text-align: center;
+}
+
+.small {
+    font-size: 0.875rem;
+}
+
+.title-form {
+    font-size: 0.875rem;
+    font-weight: font-weight(bold);
+    margin-bottom: 35px;
+}
+
+.sm-hidden {
+    @include media-max (sm) {
+        display: none;
+    }
+}
+
+.md-hidden {
+    @include media-max (md) {
+        display: none;
+    }
+}
+
+.lg-hidden {
+    @include media-max (lg) {
+        display: none;
+    }
+}
+
+
+

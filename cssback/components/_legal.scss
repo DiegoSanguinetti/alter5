@@ -1,0 +1,15 @@
+@use '../abstracts' as *;
+
+
+.header-legal {
+    padding-top: 160px;
+    padding-bottom: 0px;
+
+    @include media-min (md) {
+        padding-bottom: 80px;
+    }
+
+    h6 {
+        margin-bottom: 20px;
+    }
+}
